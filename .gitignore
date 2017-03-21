@@ -1,5 +1,18 @@
+##################
+# Ignore file for Unity3D, MonoDevelop, Visual Studio, and Visual Studio Code
+#
+# NOTE: enable visible metafiles in Unity3D's editor preferences!
+# WARNING: some ignores have been disabled using a '#'
+# USAGE: use '#' to comment lines; use '!' to include folders or files; use '*' to use all names with this prefix; use '[Aa]' to check caps and uncaps;
+
 # Unity generated
 [Ll]ibrary/
+![Ll]ibrary/metadata/
+# [Ll]ibrary/FailedAssetImports.txt
+# [Ll]ibrary/Cache/
+# [Ll]ibrary/ShaderCache/
+# [Ll]ibrary/previews/
+# [Ll]ibrary/ScriptAssemblies/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
@@ -19,8 +32,8 @@ ExportedObj/
 *.userprefs
 *.pidb
 *.booproj
-*.htm
-*.html
+# *.htm
+# *.html
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -29,8 +42,8 @@ ExportedObj/
 sysinfo.txt
 
 # Builds
-*.apk
-*.unitypackage
+# *.apk
+# *.unitypackage
 
 # OS generated
 *.DS_Store
@@ -40,3 +53,4 @@ sysinfo.txt
 *.Trashes
 *.ehthumbs.db
 *.Thumbs.db
+*.swp
