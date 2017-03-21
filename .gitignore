@@ -6,13 +6,13 @@
 # USAGE: use '#' to comment lines; use '!' to include folders or files; use '*' to use all names with this prefix; use '[Aa]' to check caps and uncaps;
 
 # Unity generated
-[Ll]ibrary/
-![Ll]ibrary/metadata/
-# [Ll]ibrary/FailedAssetImports.txt
-# [Ll]ibrary/Cache/
-# [Ll]ibrary/ShaderCache/
-# [Ll]ibrary/previews/
-# [Ll]ibrary/ScriptAssemblies/
+# [Ll]ibrary/
+# [Ll]ibrary/metadata/
+[Ll]ibrary/FailedAssetImports.txt
+[Ll]ibrary/Cache/
+[Ll]ibrary/ShaderCache/
+[Ll]ibrary/previews/
+[Ll]ibrary/ScriptAssemblies/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
