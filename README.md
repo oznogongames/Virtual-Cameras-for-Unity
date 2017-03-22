@@ -1,4 +1,4 @@
-![Alt text](/VCSU/VCSUico.png?raw=true "VCSU")
+![Alt text](VCSUico.png?raw=true "VCSU")
 
 [Virtual Camera Systems for Unity3D](https://github.com/jasperdre/VCSU)
 ==================================================
