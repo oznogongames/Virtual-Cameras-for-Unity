@@ -2,7 +2,7 @@
 
 public class MTPCamera : MonoBehaviour
 {
-	public float zOffset;				//Z-axis offset
+	public float yOffset = 1.0f;				//Z-axis offset
     public float xSpeed = 250.0f;		//Rotation speed on the x-axis
     public float ySpeed = 120.0f;		//Rotation speed on the y-axis
 	public float zSpeed = 120.0f;		//Rotation speed on the z-axis
@@ -21,7 +21,7 @@ public class MTPCamera : MonoBehaviour
 
     		if(Physics.Raycast(ray, out hit))
     		{
-         		gameObject.transform.position = hit.transform.position;
+         		gameObject.transform.position = hit.transform.position + new Vector3(0.0f, yOffset, 0.0f);
      		}
  		}
 

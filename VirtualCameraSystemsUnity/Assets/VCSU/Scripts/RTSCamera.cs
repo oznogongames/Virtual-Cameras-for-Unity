@@ -3,13 +3,13 @@
 public class RTSCamera : MonoBehaviour
 {
     public float scrollZone = 30.0f;    //Detection zone variable
-    public float scrollSpeed = 5.0f;    //Scroll speed variable
+    public float scrollSpeed = 25.0f;    //Scroll speed variable
 
-    public float xMax = 8.0f;           //Maximum x value of the camera
-    public float xMin = 0.0f;           //Minimum x value of the camera
-    public float yMax = 10.0f;          //Maximum y value of the camera
-    public float yMin = 3.0f;           //Minimum y value of the camera
-    public float zMax = 8.0f;           //Maximum z value of the camera
+    public float xMax = 0.0f;           //Maximum x value of the camera
+    public float xMin = -60.0f;           //Minimum x value of the camera
+    public float yMax = 21.0f;          //Maximum y value of the camera
+    public float yMin = 5.0f;           //Minimum y value of the camera
+    public float zMax = 60.0f;           //Maximum z value of the camera
     public float zMin = 0.0f;           //Minimum z value of the camera
 
     private Vector3 desiredPosition;    //3D vector for the desired position of the camera
@@ -24,8 +24,9 @@ public class RTSCamera : MonoBehaviour
     private void Update()
     {
         float x = 0, y = 0, z = 0;  //3D vector variables
-        float speed = scrollSpeed;  //Speed variable
+        float speed = scrollSpeed * Time.fixedDeltaTime;  //Speed variable
 
+        //Mouse input
         if (Input.mousePosition.x < scrollZone)
         {
             x -= speed;
@@ -35,11 +36,30 @@ public class RTSCamera : MonoBehaviour
             x += speed;
         }
 
-        if (Input.mousePosition.y < scrollZone)
+        if (Input.mousePosition.y < scrollZone || Input.GetKey("s"))
         {
             z -= speed;
         }
         else if (Input.mousePosition.y > Screen.height - scrollZone)
+        {
+            z += speed;
+        }
+
+        //Keyboard input
+        if (Input.GetKey("a") && transform.position.x > xMin)
+        {
+            x -= speed;
+        }
+        else if (Input.GetKey("d") && transform.position.x < xMax)
+        {
+            x += speed;
+        }
+
+        if (Input.GetKey("s") && transform.position.z > zMin)
+        {
+            z -= speed;
+        }
+        else if (Input.GetKey("w") && transform.position.z < zMax)
         {
             z += speed;
         }
