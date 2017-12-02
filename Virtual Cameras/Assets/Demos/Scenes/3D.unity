@@ -318,16 +318,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1858230803}
-  offsetX: 0
-  offsetY: 1
-  offsetZ: 1
-  maxOffsetZ: 5
-  xSpeed: 250
-  ySpeed: 120
-  zSpeed: 120
-  yMinRotation: -90
-  yMaxRotation: 90
+  offset: {x: 0, y: 1, z: 1}
+  maxOffset: {x: 0, y: 0, z: 5}
+  rotationSpeed: {x: 250, y: 120}
+  rotationLimits: {x: -90, y: 90}
   scrollSpeed: 25
+  canChangeY: 1
 --- !u!81 &770202127
 AudioListener:
   m_ObjectHideFlags: 0
