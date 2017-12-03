@@ -23,7 +23,7 @@ public class RPGCamera : MonoBehaviour
     [Header("Mouse settings")]
     [Tooltip("Rotation speed for the X and Y-axis")]
     public Vector2 rotationSpeed;
-    [Tooltip("Scroll wheel factor to change the offset")]
+    [Tooltip("Scroll wheel multiplier to change the offset")]
     public float scrollSpeed;
     [Tooltip("Whether the cursor should be hidden in playmode")]
     public bool hideCursor;

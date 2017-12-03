@@ -3,14 +3,14 @@
 public class FlyCamera : MonoBehaviour
 {
     [Header("Camera settings")]
-    [Tooltip("Factor for camera movement upwards")]
+    [Tooltip("Multiplier for camera movement upwards")]
     public float climbSpeed = 4;
-    [Tooltip("Factor for normal camera movement")]
+    [Tooltip("Multiplier for normal camera movement")]
     public float normalMoveSpeed = 10;
-    [Tooltip("Factor for slower camera movement")]
-    public float slowMoveFactor = 0.25f;
-    [Tooltip("Factor for faster camera movement")]
-    public float fastMoveFactor = 3;
+    [Tooltip("Multiplier for slower camera movement")]
+    public float slowMoveSpeed = 0.25f;
+    [Tooltip("Multiplier for faster camera movement")]
+    public float fastMoveSpeed = 3;
     [Tooltip("Rotation limits for the X-axis in degrees")]
     public Vector2 rotationLimitsX;
     [Tooltip("Rotation limits for the X-axis in degrees")]
@@ -29,7 +29,7 @@ public class FlyCamera : MonoBehaviour
     [Tooltip("Key for slower camera movement")]
     public KeyCode moveSlow;
     [Header("Mouse settings")]
-    [Tooltip("Factor for camera sensitivity")]
+    [Tooltip("Multiplier for camera sensitivity")]
     public float cameraSensitivity = 90;
     [Tooltip("Whether the cursor should be hidden in playmode")]
     public bool hideCursor;
@@ -71,13 +71,13 @@ public class FlyCamera : MonoBehaviour
 
         if (Input.GetKey(moveFast))
         {
-            transform.position += transform.forward * (normalMoveSpeed * fastMoveFactor) * Input.GetAxis("Vertical") * Time.deltaTime;
-            transform.position += transform.right * (normalMoveSpeed * fastMoveFactor) * Input.GetAxis("Horizontal") * Time.deltaTime;
+            transform.position += transform.forward * (normalMoveSpeed * fastMoveSpeed) * Input.GetAxis("Vertical") * Time.deltaTime;
+            transform.position += transform.right * (normalMoveSpeed * fastMoveSpeed) * Input.GetAxis("Horizontal") * Time.deltaTime;
         }
         else if (Input.GetKey(moveSlow))
         {
-            transform.position += transform.forward * (normalMoveSpeed * slowMoveFactor) * Input.GetAxis("Vertical") * Time.deltaTime;
-            transform.position += transform.right * (normalMoveSpeed * slowMoveFactor) * Input.GetAxis("Horizontal") * Time.deltaTime;
+            transform.position += transform.forward * (normalMoveSpeed * slowMoveSpeed) * Input.GetAxis("Vertical") * Time.deltaTime;
+            transform.position += transform.right * (normalMoveSpeed * slowMoveSpeed) * Input.GetAxis("Horizontal") * Time.deltaTime;
         }
         else
         {
