@@ -385,6 +385,8 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 5}
   rotationSpeed: 20
   rotateLeft: 0
+  hideCursor: 0
+  lockCursor: 0
 --- !u!4 &770202125 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4048125545099010, guid: 6bd68e2b3caa4264a881ae1ed496678c,

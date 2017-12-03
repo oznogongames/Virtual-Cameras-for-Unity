@@ -8,9 +8,13 @@ public class OrbitCamera : MonoBehaviour
     [Tooltip("Current relative offset to the target")]
     public Vector3 offset;
     [Tooltip("Rotation speed for the X-axis")]
-    public float rotationSpeed;
+    public float rotationSpeed = 20f;
     [Tooltip("Whether the camera should rotate left")]
-    public bool rotateLeft;
+    public bool rotateLeft = false;
+    [Tooltip("Whether the cursor should be hidden in playmode")]
+    public bool hideCursor = false;
+    [Tooltip("Whether the cursor should be locked in playmode")]
+    public bool lockCursor = false;
 
     private Transform _transform;
     private Vector2 _rotation;
@@ -21,6 +25,15 @@ public class OrbitCamera : MonoBehaviour
         if (target == null)
         {
             Debug.LogWarning("No target found!");
+        }
+
+        if (hideCursor)
+        {
+            Cursor.visible = false;
+        }
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         SetupCamera();
@@ -36,6 +49,12 @@ public class OrbitCamera : MonoBehaviour
         else
         {
             transform.RotateAround(target.position, new Vector3(0.0f, -1.0f, 0.0f), rotationSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 

@@ -4,13 +4,17 @@ public class FlyCamera : MonoBehaviour
 {
     [Header("Camera settings")]
     [Tooltip("Multiplier for camera movement upwards")]
-    public float climbSpeed = 4;
+    [Range(0f, 10f)]
+    public float climbSpeed = 4f;
     [Tooltip("Multiplier for normal camera movement")]
-    public float normalMoveSpeed = 10;
+    [Range(0f, 20f)]
+    public float normalMoveSpeed = 10f;
     [Tooltip("Multiplier for slower camera movement")]
+    [Range(0f, 5f)]
     public float slowMoveSpeed = 0.25f;
     [Tooltip("Multiplier for faster camera movement")]
-    public float fastMoveSpeed = 3;
+    [Range(0f, 40f)]
+    public float fastMoveSpeed = 3f;
     [Tooltip("Rotation limits for the X-axis in degrees")]
     public Vector2 rotationLimitsX;
     [Tooltip("Rotation limits for the X-axis in degrees")]
@@ -30,11 +34,12 @@ public class FlyCamera : MonoBehaviour
     public KeyCode moveSlow;
     [Header("Mouse settings")]
     [Tooltip("Multiplier for camera sensitivity")]
-    public float cameraSensitivity = 90;
+    [Range(0f, 200f)]
+    public float cameraSensitivity = 90f;
     [Tooltip("Whether the cursor should be hidden in playmode")]
-    public bool hideCursor;
+    public bool hideCursor = false;
     [Tooltip("Whether the cursor should be locked in playmode")]
-    public bool lockCursor;
+    public bool lockCursor = false;
 
     private Vector2 _rotation;
 

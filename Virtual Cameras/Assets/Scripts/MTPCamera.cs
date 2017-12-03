@@ -10,16 +10,16 @@ public class MTPCamera : MonoBehaviour
     [Tooltip("Rotation limits for the X-axis in degrees")]
     public Vector2 rotationLimitsY;
     [Tooltip("Whether the rotation on the X-axis should be limited")]
-    public bool limitXRotation;
+    public bool limitXRotation = false;
     [Tooltip("Whether the rotation on the Y-axis should be limited")]
-    public bool limitYRotation;
+    public bool limitYRotation = false;
     [Header("Mouse settings")]
     [Tooltip("Rotation speed for the X and Y-axis")]
     public Vector2 rotationSpeed;
     [Tooltip("Whether the cursor should be hidden in playmode")]
-    public bool hideCursor;
+    public bool hideCursor = false;
     [Tooltip("Whether the cursor should be locked in playmode")]
-    public bool lockCursor;
+    public bool lockCursor = false;
 
     private Vector2 _rotation;
 

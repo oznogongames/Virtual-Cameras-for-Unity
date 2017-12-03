@@ -17,18 +17,19 @@ public class RPGCamera : MonoBehaviour
     [Tooltip("Rotation limits for the Y-axis in degrees")]
     public Vector2 rotationLimitsY;
     [Tooltip("Whether the rotation on the X-axis should be limited")]
-    public bool limitXRotation;
+    public bool limitXRotation = false;
     [Tooltip("Whether the rotation on the Y-axis should be limited")]
-    public bool limitYRotation;
+    public bool limitYRotation = false;
     [Header("Mouse settings")]
     [Tooltip("Rotation speed for the X and Y-axis")]
     public Vector2 rotationSpeed;
     [Tooltip("Scroll wheel multiplier to change the offset")]
-    public float scrollSpeed;
+    [Range(0f, 100f)]
+    public float scrollSpeed = 50f;
     [Tooltip("Whether the cursor should be hidden in playmode")]
-    public bool hideCursor;
+    public bool hideCursor = false;
     [Tooltip("Whether the cursor should be locked in playmode")]
-    public bool lockCursor;
+    public bool lockCursor = false;
 
     private Transform _transform;
     private Vector2 _rotation;
