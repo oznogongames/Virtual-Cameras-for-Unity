@@ -9,46 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1740789792688254}
+  m_RootGameObject: {fileID: 1315616068641456}
   m_IsPrefabParent: 1
---- !u!1 &1740789792688254
+--- !u!1 &1315616068641456
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4066887280271192}
-  - component: {fileID: 20145062961963366}
-  - component: {fileID: 124267615031185636}
-  - component: {fileID: 81364449045848244}
-  - component: {fileID: 114802294383432568}
+  - component: {fileID: 4175059239947624}
+  - component: {fileID: 20370400604761998}
+  - component: {fileID: 124956570061063096}
+  - component: {fileID: 81232937073571914}
+  - component: {fileID: 114375306972876938}
   m_Layer: 0
-  m_Name: FlyCamera
+  m_Name: RTSCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4066887280271192
+--- !u!4 &4175059239947624
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1740789792688254}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_GameObject: {fileID: 1315616068641456}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &20145062961963366
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!20 &20370400604761998
 Camera:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1740789792688254}
+  m_GameObject: {fileID: 1315616068641456}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -78,37 +78,37 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &81364449045848244
+--- !u!81 &81232937073571914
 AudioListener:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1740789792688254}
+  m_GameObject: {fileID: 1315616068641456}
   m_Enabled: 1
---- !u!114 &114802294383432568
+--- !u!114 &114375306972876938
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1740789792688254}
+  m_GameObject: {fileID: 1315616068641456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04a7cf7a7b498ae44ad9d2e9b23d971a, type: 3}
+  m_Script: {fileID: 11500000, guid: 258040ce725f550469dc76f872a45818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  distance: 4
-  height: 2
-  heightDamping: 0.5
-  lookAtHeight: 0
-  parentRigidbody: {fileID: 0}
-  rotationSnapTime: 0.3
-  distanceSnapTime: 0
-  distanceMultiplier: 0
---- !u!124 &124267615031185636
+  scrollZone: 30
+  moveSpeed: 20
+  scrollSpeed: 100
+  smoothFactor: 0.2
+  moveLimitsX: {x: -30, y: 30}
+  scrollLimitsY: {x: 4, y: 10}
+  moveLimitsZ: {x: -30, y: 30}
+  hideCursor: 0
+  lockCursor: 0
+--- !u!124 &124956570061063096
 Behaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1740789792688254}
+  m_GameObject: {fileID: 1315616068641456}
   m_Enabled: 1

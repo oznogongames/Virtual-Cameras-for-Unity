@@ -97,11 +97,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  offset: {x: 0, y: 0, z: 4}
+  offset: {x: 0, y: 1, z: 4}
   minOffset: {x: 0, y: 0, z: 2}
   maxOffset: {x: 0, y: 0, z: 5}
   rotationLimitsX: {x: -90, y: 90}
-  rotationLimitsY: {x: -90, y: 90}
+  rotationLimitsY: {x: 10, y: 90}
   limitXRotation: 1
   limitYRotation: 1
   rotationSpeed: {x: 120, y: 120}
