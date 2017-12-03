@@ -2,38 +2,79 @@
 
 public class FlyCamera : MonoBehaviour
 {
-    public float cameraSensitivity = 90;
+    [Header("Camera settings")]
+    [Tooltip("Factor for camera movement upwards")]
     public float climbSpeed = 4;
+    [Tooltip("Factor for normal camera movement")]
     public float normalMoveSpeed = 10;
+    [Tooltip("Factor for slower camera movement")]
     public float slowMoveFactor = 0.25f;
+    [Tooltip("Factor for faster camera movement")]
     public float fastMoveFactor = 3;
+    [Tooltip("Rotation limits for the X-axis in degrees")]
+    public Vector2 rotationLimitsX;
+    [Tooltip("Rotation limits for the X-axis in degrees")]
+    public Vector2 rotationLimitsY;
+    [Tooltip("Whether the rotation on the X-axis should be limited")]
+    public bool limitXRotation;
+    [Tooltip("Whether the rotation on the Y-axis should be limited")]
+    public bool limitYRotation;
+    [Header("Keyboard settings")]
+    [Tooltip("Key for moving the camera upwards")]
+    public KeyCode moveUp;
+    [Tooltip("Key for moving the camera downwards")]
+    public KeyCode moveDown;
+    [Tooltip("Key for faster camera movement")]
+    public KeyCode moveFast;
+    [Tooltip("Key for slower camera movement")]
+    public KeyCode moveSlow;
+    [Header("Mouse settings")]
+    [Tooltip("Factor for camera sensitivity")]
+    public float cameraSensitivity = 90;
+    [Tooltip("Whether the cursor should be hidden in playmode")]
+    public bool hideCursor;
+    [Tooltip("Whether the cursor should be locked in playmode")]
+    public bool lockCursor;
 
-    private float rotationX = 0.0f;
-    private float rotationY = 0.0f;
+    private Vector2 _rotation;
 
     // Use this for initialization
     void Start()
     {
-       Cursor.visible = false;
-       Cursor.lockState = CursorLockMode.Locked;
+        if (hideCursor)
+        {
+            Cursor.visible = false;
+        }
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        rotationX += Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
-        rotationY += Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
-        rotationY = Mathf.Clamp(rotationY, -90, 90);
+        _rotation.x += Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
+        _rotation.y += Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
 
-        transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
-        transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+        if (limitXRotation)
+        {
+            _rotation.x = Mathf.Clamp(_rotation.x, rotationLimitsX.x, rotationLimitsX.y);
+        }
+        if (limitYRotation)
+        {
+            _rotation.y = Mathf.Clamp(_rotation.y, rotationLimitsY.x, rotationLimitsY.y);
+        }
 
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        transform.localRotation = Quaternion.AngleAxis(_rotation.x, Vector3.up);
+        transform.localRotation *= Quaternion.AngleAxis(_rotation.y, Vector3.left);
+
+        if (Input.GetKey(moveFast))
         {
             transform.position += transform.forward * (normalMoveSpeed * fastMoveFactor) * Input.GetAxis("Vertical") * Time.deltaTime;
             transform.position += transform.right * (normalMoveSpeed * fastMoveFactor) * Input.GetAxis("Horizontal") * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+        else if (Input.GetKey(moveSlow))
         {
             transform.position += transform.forward * (normalMoveSpeed * slowMoveFactor) * Input.GetAxis("Vertical") * Time.deltaTime;
             transform.position += transform.right * (normalMoveSpeed * slowMoveFactor) * Input.GetAxis("Horizontal") * Time.deltaTime;
@@ -44,13 +85,12 @@ public class FlyCamera : MonoBehaviour
             transform.position += transform.right * normalMoveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
         }
 
-
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(moveUp))
         {
             transform.position += transform.up * climbSpeed * Time.deltaTime;
         }
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(moveDown))
         {
             transform.position -= transform.up * climbSpeed * Time.deltaTime;
         }

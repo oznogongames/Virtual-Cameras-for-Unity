@@ -2,17 +2,36 @@
 
 public class RPGCamera : MonoBehaviour
 {
+    [Header("Target")]
+    [Tooltip("Reference to the target GameObject")]
     public Transform target;
-    public float walkDistance;
-    public float runDistance;
-    public float height;
-    public float xSpeed = 250.0f;
-    public float ySpeed = 120.0f;
+    [Header("Camera settings")]
+    [Tooltip("Current relative offset to the target")]
+    public Vector3 offset;
+    [Tooltip("Minimum relative offset to the target GameObject")]
+    public Vector3 minOffset;
+    [Tooltip("Maximum relative offset to the target GameObject")]
+    public Vector3 maxOffset;
+    [Tooltip("Rotation limits for the X-axis in degrees")]
+    public Vector2 rotationLimitsX;
+    [Tooltip("Rotation limits for the Y-axis in degrees")]
+    public Vector2 rotationLimitsY;
+    [Tooltip("Whether the rotation on the X-axis should be limited")]
+    public bool limitXRotation;
+    [Tooltip("Whether the rotation on the Y-axis should be limited")]
+    public bool limitYRotation;
+    [Header("Mouse settings")]
+    [Tooltip("Rotation speed for the X and Y-axis")]
+    public Vector2 rotationSpeed;
+    [Tooltip("Scroll wheel factor to change the offset")]
+    public float scrollSpeed;
+    [Tooltip("Whether the cursor should be hidden in playmode")]
+    public bool hideCursor;
+    [Tooltip("Whether the cursor should be locked in playmode")]
+    public bool lockCursor;
 
-    private Transform _myTransform;
-    private float x;
-    private float y;
-    private bool camButtonDown = false;
+    private Transform _transform;
+    private Vector2 _rotation;
 
     // Use this for initialization
     void Start()
@@ -22,7 +41,16 @@ public class RPGCamera : MonoBehaviour
             Debug.LogWarning("No target found!");
         }
 
-        _myTransform = transform;
+        if (hideCursor)
+        {
+            Cursor.visible = false;
+        }
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        _transform = transform;
         SetupCamera();
     }
 
@@ -31,32 +59,56 @@ public class RPGCamera : MonoBehaviour
     {   
         if (target && Input.GetMouseButton(1))
         {
-            x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
-            y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+            _rotation.x += Input.GetAxis("Mouse X") * rotationSpeed.x * Time.deltaTime;
+            _rotation.y -= Input.GetAxis("Mouse Y") * rotationSpeed.y * Time.deltaTime;
 
-            x = Mathf.Clamp(x, -90.0f, 90.0f);
-            y = Mathf.Clamp(y, -90.0f, 90.0f);
+            if (limitXRotation)
+            {
+                _rotation.x = Mathf.Clamp(_rotation.x, rotationLimitsX.x, rotationLimitsX.y);
+            }
+            if (limitYRotation)
+            {
+                _rotation.y = Mathf.Clamp(_rotation.y, rotationLimitsY.x, rotationLimitsY.y);
+            }
+        }
 
-            Quaternion rotation = Quaternion.Euler(y, x, 0);
-            Vector3 position = rotation * new Vector3(0.0f, 0.0f, -walkDistance) + target.position;
+        if (-offset.z > -minOffset.z)
+        {
+            offset.z = minOffset.z;
+        }
+        else if (-offset.z < -maxOffset.z)
+        {
+            offset.z = maxOffset.z;
+        }
+        else
+        {
+            offset.z -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed * Time.deltaTime;
+        }
 
-            _myTransform.rotation = rotation;
-            _myTransform.position = position;
+        Quaternion rotation = Quaternion.Euler(_rotation.y, _rotation.x, 0);
+        Vector3 position = rotation * new Vector3(offset.x, offset.y, -offset.z) + target.position;
 
+        _transform.rotation = rotation;
+        _transform.position = position;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
     public void SetupCamera()
     {
-        _myTransform.position = new Vector3(target.position.x, target.position.y + height, target.position.z - walkDistance);
-        _myTransform.LookAt(target);
+        _transform.position = new Vector3(target.position.x + offset.x, target.position.y + offset.y, target.position.z - offset.z);
+        _transform.LookAt(target);
     }
 
     public void ResetCamera()
     {
-        _myTransform.position = new Vector3(target.position.x, target.position.y + height, target.position.z - walkDistance);
-        _myTransform.LookAt(target);
-        x = 0;
-        y = 0;
+        _transform.position = new Vector3(target.position.x + offset.x, target.position.y + offset.x, target.position.z - offset.z);
+        _transform.LookAt(target);
+        _rotation.x = 0;
+        _rotation.y = 0;
     }
 }

@@ -2,38 +2,76 @@
 
 public class MTPCamera : MonoBehaviour
 {
-    public float yOffset = 1.0f;
-    public float xSpeed = 250.0f;		//Rotation speed on the x-axis
-    public float ySpeed = 120.0f;       //Rotation speed on the y-axis
-    public float zSpeed = 120.0f;       //Rotation speed on the z-axis
-    public float yMinLimit = -90.0f;    //Least possible value of the y rotation
-    public float yMaxLimit = 90.0f;		//Maximum possible value of the y rotation
-    private float x;					//X position value
-    private float y;                    //Y position value
+    [Header("Camera settings")]
+    [Tooltip("Current relative offset to the target")]
+    public Vector3 offset;
+    [Tooltip("Rotation limits for the X-axis in degrees")]
+    public Vector2 rotationLimitsX;
+    [Tooltip("Rotation limits for the X-axis in degrees")]
+    public Vector2 rotationLimitsY;
+    [Tooltip("Whether the rotation on the X-axis should be limited")]
+    public bool limitXRotation;
+    [Tooltip("Whether the rotation on the Y-axis should be limited")]
+    public bool limitYRotation;
+    [Header("Mouse settings")]
+    [Tooltip("Rotation speed for the X and Y-axis")]
+    public Vector2 rotationSpeed;
+    [Tooltip("Whether the cursor should be hidden in playmode")]
+    public bool hideCursor;
+    [Tooltip("Whether the cursor should be locked in playmode")]
+    public bool lockCursor;
+
+    private Vector2 _rotation;
+
+    // Use this for initialization
+    void Start()
+    {
+        if (hideCursor)
+        {
+            Cursor.visible = false;
+        }
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) //Check for left mouse button press
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                gameObject.transform.position = hit.transform.position + new Vector3(0.0f, yOffset, 0.0f);
+                gameObject.transform.position = hit.transform.position + new Vector3(offset.x, offset.y, offset.z);
             }
         }
 
-        if (Input.GetMouseButton(1)) //Check for right mouse button press 
+        if (Input.GetMouseButton(1))
         {
-            x += Input.GetAxis("Mouse X") * xSpeed * 0.02f; //Update X-axis based on mouse input
-            y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f; //Update Y-axis based on mouse input
-            y = Mathf.Clamp(y, yMinLimit, yMaxLimit);       //Update the current Y-axis value by interpolating it between the limit
+            _rotation.x += Input.GetAxis("Mouse X") * rotationSpeed.x * Time.deltaTime;
+            _rotation.y -= Input.GetAxis("Mouse Y") * rotationSpeed.y * Time.deltaTime;
+
+            if (limitXRotation)
+            {
+                _rotation.x = Mathf.Clamp(_rotation.x, rotationLimitsX.x, rotationLimitsX.y);
+            }
+            if (limitYRotation)
+            {
+                _rotation.y = Mathf.Clamp(_rotation.y, rotationLimitsY.x, rotationLimitsY.y);
+            }
         }
 
-        Quaternion rotation = Quaternion.Euler(y, x, 0);   //Rotation euler angles
+        Quaternion rotation = Quaternion.Euler(_rotation.y, _rotation.x, 0);
+        transform.rotation = rotation;
 
-        transform.rotation = rotation;  //Assign the new rotation/orientation
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }

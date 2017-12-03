@@ -195,7 +195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &251543181
 AudioListener:
   m_ObjectHideFlags: 0
@@ -269,11 +269,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7487f31bf5c8e4fbd7821b02e513c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraSensitivity: 90
   climbSpeed: 4
   normalMoveSpeed: 10
   slowMoveFactor: 0.25
   fastMoveFactor: 3
+  rotationLimitsX: {x: -45, y: 45}
+  rotationLimitsY: {x: -45, y: 45}
+  limitXRotation: 0
+  limitYRotation: 0
+  moveUp: 113
+  moveDown: 101
+  moveFast: 304
+  moveSlow: 306
+  cameraSensitivity: 90
+  hideCursor: 1
+  lockCursor: 1
 --- !u!1 &770202124
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &770202125
 Transform:
   m_ObjectHideFlags: 0
@@ -318,11 +328,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1858230803}
-  walkDistance: 5
-  runDistance: 5
-  height: 0
-  xSpeed: 250
-  ySpeed: 120
+  offset: {x: 0, y: 0, z: 4}
+  minOffset: {x: 0, y: 0, z: 2}
+  maxOffset: {x: 0, y: 0, z: 5}
+  rotationLimitsX: {x: -90, y: 90}
+  rotationLimitsY: {x: -90, y: 90}
+  limitXRotation: 1
+  limitYRotation: 1
+  rotationSpeed: {x: 120, y: 120}
+  scrollSpeed: 50
+  hideCursor: 0
+  lockCursor: 0
 --- !u!81 &770202127
 AudioListener:
   m_ObjectHideFlags: 0
@@ -415,12 +431,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead4a6fda5f553442be17ad600eb9c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 1
-  xSpeed: 250
-  ySpeed: 120
-  zSpeed: 120
-  yMinLimit: -90
-  yMaxLimit: 90
+  offset: {x: 0, y: 0, z: 0}
+  rotationLimitsX: {x: -45, y: 45}
+  rotationLimitsY: {x: -45, y: 45}
+  limitXRotation: 0
+  limitYRotation: 0
+  rotationSpeed: {x: 250, y: 120}
+  hideCursor: 0
+  lockCursor: 0
 --- !u!81 &1128504797
 AudioListener:
   m_ObjectHideFlags: 0
