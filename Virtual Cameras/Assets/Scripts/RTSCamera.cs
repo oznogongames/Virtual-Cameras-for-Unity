@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class RTSCamera : MonoBehaviour
 {
+    [Header("Camera settings")]
+    [Tooltip("Zone that will receive on-screen cursor position")]
+    [Range(0f, 100f)]
     public float scrollZone = 30.0f;
+    [Tooltip("Multiplier for the movement speed")]
+    [Range(0f, 200f)]
     public float moveSpeed = 20.0f;
+    [Tooltip("Multiplier for the zoom speed")]
+    [Range(0f, 200f)]
     public float scrollSpeed = 100.0f;
-    public float smoothSpeed = 0.2f;
+    [Tooltip("Smoothing factor")]
+    [Range(0f, 10f)]
+    public float smoothFactor = 0.2f;
+    [Tooltip("Movement limits on the X-axis")]
     public Vector2 moveLimitsX;
+    [Tooltip("Movement limits on the Y-axis")]
     public Vector2 scrollLimitsY;
+    [Tooltip("Movement limits on the Z-axis")]
     public Vector2 moveLimitsZ;
     [Tooltip("Whether the cursor should be hidden in playmode")]
     public bool hideCursor = false;
@@ -63,7 +75,7 @@ public class RTSCamera : MonoBehaviour
          move.y = Mathf.Clamp(move.y, scrollLimitsY.x, scrollLimitsY.y);
          move.z = Mathf.Clamp(move.z, moveLimitsX.x, moveLimitsX.y);
          desiredPosition = move;
-         transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+         transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothFactor);
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
