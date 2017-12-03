@@ -2,69 +2,61 @@
 
 public class RPGCamera : MonoBehaviour
 {
-    [Header("Target")]
-    [Tooltip("Reference to the target GameObject")]
     public Transform target;
-    [Tooltip("Relative offset from the target position")]
-    public Vector3 offset;
-    [Tooltip("Maximum relative offset from the target position")]
-    public Vector3 maxOffset;
-    [Header("Camera")]
-    [Tooltip("Rotation speed")]
-    public Vector2 rotationSpeed;
-    [Tooltip("Rotation limits for the X-axis")]
-    public Vector2 rotationLimitsX;
-    [Tooltip("Rotation limits for the Y-axis")]
-    public Vector2 rotationLimitsY;
-    [Tooltip("Speed scalar for the mouse wheel")]
-    public float scrollSpeed = 25.0f;
-    [Tooltip("Whether the player can change the rotation on the X-axis of the camera")]
-    public bool canChangeXAxis = true;
-    [Tooltip("Whether the player can change the rotation on the Y-axis of the camera")]
-    public bool canChangeYAxis = true;
+    public float walkDistance;
+    public float runDistance;
+    public float height;
+    public float xSpeed = 250.0f;
+    public float ySpeed = 120.0f;
 
-    private Vector3 position;
+    private Transform _myTransform;
+    private float x;
+    private float y;
+    private bool camButtonDown = false;
 
-    //Use this for initialization
+    // Use this for initialization
     void Start()
     {
         if (target == null)
         {
             Debug.LogWarning("No target found!");
         }
+
+        _myTransform = transform;
+        SetupCamera();
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         if (target && Input.GetMouseButton(1))
         {
-            if (canChangeXAxis)
-            {
-                position.x += Input.GetAxis("Mouse X") * rotationSpeed.x * Time.deltaTime;
-            }
-            if (canChangeYAxis)
-            {
-                position.y -= Input.GetAxis("Mouse Y") * rotationSpeed.y * Time.deltaTime;
-            }
-            position.x = Mathf.Clamp(position.x, rotationLimitsX.x, rotationLimitsX.y);
-            position.y = Mathf.Clamp(position.y, rotationLimitsY.x, rotationLimitsY.y);
-        }
+            x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
+            y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
 
-        if (transform.position.z > target.transform.position.z - offset.z)
-        {
-            position.z = target.transform.position.z + offset.z;
-        }
-        else if (transform.position.z < target.transform.position.z - maxOffset.z)
-        {
-            position.z = target.transform.position.z + maxOffset.z;
-        }
-        else
-        {
-            position.z -= Input.GetAxis("Mouse ScrollWheel") * Time.fixedDeltaTime * scrollSpeed;
-        }
+            x = Mathf.Clamp(x, -90.0f, 90.0f);
+            y = Mathf.Clamp(y, -90.0f, 90.0f);
 
-        transform.rotation = Quaternion.Euler(position.y, position.x, 0.0f);
-        transform.position = transform.rotation * new Vector3(offset.x, offset.y, -position.z) + target.position;
+            Quaternion rotation = Quaternion.Euler(y, x, 0);
+            Vector3 position = rotation * new Vector3(0.0f, 0.0f, -walkDistance) + target.position;
+
+            _myTransform.rotation = rotation;
+            _myTransform.position = position;
+
+        }
+    }
+
+    public void SetupCamera()
+    {
+        _myTransform.position = new Vector3(target.position.x, target.position.y + height, target.position.z - walkDistance);
+        _myTransform.LookAt(target);
+    }
+
+    public void ResetCamera()
+    {
+        _myTransform.position = new Vector3(target.position.x, target.position.y + height, target.position.z - walkDistance);
+        _myTransform.LookAt(target);
+        x = 0;
+        y = 0;
     }
 }
