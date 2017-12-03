@@ -12,10 +12,14 @@ public class RPGCamera : MonoBehaviour
     [Header("Camera")]
     [Tooltip("Rotation speed")]
     public Vector2 rotationSpeed;
+    [Tooltip("Rotation limits for the X-axis")]
+    public Vector2 rotationLimitsX;
     [Tooltip("Rotation limits for the Y-axis")]
-    public Vector2 rotationLimits;
+    public Vector2 rotationLimitsY;
     [Tooltip("Speed scalar for the mouse wheel")]
     public float scrollSpeed = 25.0f;
+    [Tooltip("Whether the player can change the rotation on the X-axis of the camera")]
+    public bool canChangeXAxis = true;
     [Tooltip("Whether the player can change the rotation on the Y-axis of the camera")]
     public bool canChangeYAxis = true;
 
@@ -35,12 +39,16 @@ public class RPGCamera : MonoBehaviour
     {
         if (target && Input.GetMouseButton(1))
         {
-            position.x += Input.GetAxis("Mouse X") * rotationSpeed.x * Time.deltaTime;
+            if (canChangeXAxis)
+            {
+                position.x += Input.GetAxis("Mouse X") * rotationSpeed.x * Time.deltaTime;
+            }
             if (canChangeYAxis)
             {
                 position.y -= Input.GetAxis("Mouse Y") * rotationSpeed.y * Time.deltaTime;
             }
-            position.y = Mathf.Clamp(position.y, rotationLimits.x, rotationLimits.y);
+            position.x = Mathf.Clamp(position.x, rotationLimitsX.x, rotationLimitsX.y);
+            position.y = Mathf.Clamp(position.y, rotationLimitsY.x, rotationLimitsY.y);
         }
 
         if (transform.position.z > target.transform.position.z - offset.z)

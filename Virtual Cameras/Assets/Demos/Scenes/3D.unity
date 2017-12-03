@@ -321,9 +321,11 @@ MonoBehaviour:
   offset: {x: 0, y: 1, z: 1}
   maxOffset: {x: 0, y: 0, z: 5}
   rotationSpeed: {x: 250, y: 120}
-  rotationLimits: {x: -90, y: 90}
+  rotationLimitsX: {x: -60, y: 60}
+  rotationLimitsY: {x: -10, y: 60}
   scrollSpeed: 25
-  canChangeY: 1
+  canChangeXAxis: 1
+  canChangeYAxis: 1
 --- !u!81 &770202127
 AudioListener:
   m_ObjectHideFlags: 0
